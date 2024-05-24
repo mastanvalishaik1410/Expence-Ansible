@@ -2,7 +2,7 @@
   hosts: db
   become: yes
   vars:
-    login_host: db.shaik.fun
+    login_host: 172.31.31.129
   tasks:
   - name: install mysql server
     ansible.builtin.dnf:
