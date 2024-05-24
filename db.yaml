@@ -1,0 +1,36 @@
+- name: configure DB
+  hosts: db
+  become: yes
+  vars:
+    login_host: db.shaik.fun
+  tasks:
+  - name: install mysql server
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: latest
+
+  - name: start and enable mysql
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enable: yes
+
+  - name: Install python dependcies
+    ansible.builtin.pip:
+      name:
+      - PyMySql
+      - cryptography
+      executable: pip3.9
+
+  - name: check db connection
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: ExpenceApp@1
+      login_host: " {{login_host:}}"
+      filter: version
+    ignore_errors: yes
+    register: mysql_connection_output
+
+  - name: Print output
+    ansible.builtin.debug:
+      msg: "output {{ mysql_connection_output}}"
