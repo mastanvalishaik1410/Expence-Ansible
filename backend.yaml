@@ -44,7 +44,7 @@
 
   - name: copy file
     ansible.builtin.copy:
-      src: /backend.service
+      src: backend.service
       dest: /etc/systemd/system/backend.service
 
   - name: Install python dependcies
