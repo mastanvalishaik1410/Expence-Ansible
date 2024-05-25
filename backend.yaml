@@ -2,6 +2,9 @@
   hosts: backend
   become: yes
   vars:
+    login_host: db
+    rootpw: ExpenseApp@1
+
 
   tasks:
   - name: disable old node js
@@ -43,3 +46,19 @@
     ansible.builtin.copy:
       src: /backend.service
       dest: /etc/systemd/system/backend.service
+
+  - name: Install python dependcies
+    ansible.builtin.pip:
+      name:
+      - PyMySql
+      - cryptography
+      executable: pip3.9
+
+  - name: load data in to mysql
+    community.mysql.mysql_db:
+      login_user: root
+      login_password: "{{ rootpw }}"
+      login_host: "{{ login_host }}"
+      target: /app/schema/backend.sql
+      state: dump
+      name: all
