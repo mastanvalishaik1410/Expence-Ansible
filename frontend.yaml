@@ -21,4 +21,4 @@
   - name: create html dir
     ansible.builtin.file:
       path: /usr/share/nginx/html
-      state: latest
+      state: directory
