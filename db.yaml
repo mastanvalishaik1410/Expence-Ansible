@@ -2,7 +2,7 @@
   hosts: db
   become: yes
   vars:
-    login_host: 172.31.31.129
+    login_host: 172.31.25.239
   vars_prompt:
     name: rootpw
     prompt: enter login_password
